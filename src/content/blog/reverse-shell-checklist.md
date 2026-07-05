@@ -5,7 +5,7 @@ pubDate: 2026-05-23
 tags: ["tech", "backend", "networking"]
 ---
 
-Reverse shell can be annoying to debug as it tends to fail silently. Here is a step-by-step checklist for when your reverse shell payload fires but nothing connects back. This is based on shell.phtml file on the target's machine:
+Reverse shells can be annoying to debug as it tends to fail silently. Here is a step-by-step checklist for when your reverse shell payload fires but nothing connects back. This is based on a `shell.phtml` file on the target's machine:
 
 ```h
 <?php
