@@ -4,4 +4,17 @@
     --pastel-accent: #ffb7b2; /* Pastel Pink Tint */
     --widget-border: #e0bbe4; /* Pastel Purple Tint */
     --surface-layer: #26282b;
+
+    /* Shiki code block tokens */
+    --astro-code-color-text: var(--primary-txt);
+    --astro-code-color-background: var(--surface-layer);
+    --astro-code-token-constant: var(--pastel-accent);
+    --astro-code-token-string: #b9e8a0;
+    --astro-code-token-comment: #7a7d85;
+    --astro-code-token-keyword: var(--widget-border);
+    --astro-code-token-parameter: var(--primary-txt);
+    --astro-code-token-function: #8ecdf0;
+    --astro-code-token-string-expression: #b9e8a0;
+    --astro-code-token-punctuation: #9a9da3;
+    --astro-code-token-link: #8ecdf0;
 }

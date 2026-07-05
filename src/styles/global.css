@@ -35,6 +35,32 @@ a:hover {
     padding: 0 1.25rem;
 }
 
+/* Code Blocks */
+pre {
+    background: var(--surface-layer);
+    padding: 1.25rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+    border: 1px solid color-mix(in srgb, var(--widget-border) 25%, transparent);
+}
+
+pre > code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    background: none;
+}
+
+:not(pre) > code {
+    background: var(--surface-layer);
+    color: var(--pastel-accent);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
 /* Homepage Styles */
 .intro-block {
     margin-bottom: 2.5rem;
