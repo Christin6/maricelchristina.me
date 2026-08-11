@@ -1,0 +1,35 @@
+---
+title: "NetStack"
+description: "A from-scratch Rust networking stack"
+techStack: ["rust"]
+featured: true
+demoLink: "https://github.com/Christin6/netstack"
+sourceLink: "https://github.com/Christin6/netstack"
+---
+
+import Callout from '../../components/Callout.astro';
+
+<Callout type="info">
+  **Heads up!** This app runs fully on terminal.
+</Callout>
+
+## Features
+- Subnetting & CIDR calculator: Parses CIDR notation (192.168.1.0/24) by hand
+- TCP/UDP socket layer: Dual-stack IPv4/IPv6 support (handles IPv4-mapped IPv6 addresses correctly). Working TCP echo server as the first working socket primitive.
+- Hand-crafted DNS resolver: Constructs raw DNS query packets byte-by-byte per RFC 1035, no DNS library.
+- TCP handshake internals: Raw-socket-level SYN/SYN-ACK/ACK construction and observation.
+- Port scanner: CIDR-range expansion (built on the subnetting layer) to generate scan targets.
+- Packet sniffer: Raw/promiscuous-mode socket capture. Manual Ethernet/IP/TCP header parsing off the wire.
+
+## Reason it's made
+I used a lot of enumeration tools while solving CTF challenges, but never truly understand the underlying mechanism. This project is mainly a learning exercise to understand how everything works under the hood, down to the networking concepts. I created it in Rust to push me to understand memory safety concepts.
+
+## Structure
+- User selects one of the following commands:
+  - `echo-server`: create tcp server with optional custom port number (DONE)
+  - `subnet`: parse CIDR notation and compute network address, broadcast address, and usable host range
+  - `dig`: hand-craft a raw DNS query packet, send it over UDP, and parse the response
+  - `scan`: scan a target host for open ports across a given port range
+  - `sniff`: raw packet capture
+
+## Images
