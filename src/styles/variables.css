@@ -1,41 +1,43 @@
 :root,
 [data-theme="dark"] {
-    --canvas-bg: #1c1c20;
-    --primary-txt: #e6edf3;
-    --pastel-accent: #ffb7b2; /* Pastel Pink Tint */
-    --widget-border: #e0bbe4; /* Pastel Purple Tint */
-    --surface-layer: #26282b;
+    /* Catppuccin Mocha */
+    --canvas-bg: #1e1e2e; /* Base */
+    --primary-txt: #cdd6f4; /* Text */
+    --pastel-accent: #f5c2e7; /* Pink */
+    --widget-border: #cba6f7; /* Mauve */
+    --surface-layer: #313244; /* Surface0 */
 
     /* Shiki code block tokens */
     --astro-code-color-text: var(--primary-txt);
     --astro-code-color-background: var(--surface-layer);
-    --astro-code-token-constant: var(--pastel-accent);
-    --astro-code-token-string: #b9e8a0;
-    --astro-code-token-comment: #7a7d85;
-    --astro-code-token-keyword: var(--widget-border);
+    --astro-code-token-constant: var(--pastel-accent); /* Pink */
+    --astro-code-token-string: #a6e3a1; /* Green */
+    --astro-code-token-comment: #6c7086; /* Overlay0 */
+    --astro-code-token-keyword: var(--widget-border); /* Mauve */
     --astro-code-token-parameter: var(--primary-txt);
-    --astro-code-token-function: #8ecdf0;
-    --astro-code-token-string-expression: #b9e8a0;
-    --astro-code-token-punctuation: #9a9da3;
-    --astro-code-token-link: #8ecdf0;
+    --astro-code-token-function: #89b4fa; /* Blue */
+    --astro-code-token-string-expression: #a6e3a1; /* Green */
+    --astro-code-token-punctuation: #9399b2; /* Overlay2 */
+    --astro-code-token-link: #89b4fa; /* Blue */
 }
 
 [data-theme="light"] {
-    --canvas-bg: #f4f4f6;
-    --primary-txt: #1c1c20;
-    --pastel-accent: #ffb7b2;
-    --widget-border: #e0bbe4;
-    --surface-layer: #e8e8ec;
+    /* Catppuccin Latte */
+    --canvas-bg: #eff1f5; /* Base */
+    --primary-txt: #4c4f69; /* Text */
+    --pastel-accent: #ea76cb; /* Pink */
+    --widget-border: #8839ef; /* Mauve */
+    --surface-layer: #ccd0da; /* Surface0 */
 
     --astro-code-color-text: var(--primary-txt);
     --astro-code-color-background: var(--surface-layer);
-    --astro-code-token-constant: #c45c5c;
-    --astro-code-token-string: #3d7a3d;
-    --astro-code-token-comment: #6b6e76;
-    --astro-code-token-keyword: #7a4f8a;
+    --astro-code-token-constant: #ea76cb; /* Pink */
+    --astro-code-token-string: #40a02b; /* Green */
+    --astro-code-token-comment: #6c6f85; /* Subtext0 */
+    --astro-code-token-keyword: #8839ef; /* Mauve */
     --astro-code-token-parameter: var(--primary-txt);
-    --astro-code-token-function: #2a6e9e;
-    --astro-code-token-string-expression: #3d7a3d;
-    --astro-code-token-punctuation: #5a5d65;
-    --astro-code-token-link: #2a6e9e;
+    --astro-code-token-function: #1e66f5; /* Blue */
+    --astro-code-token-string-expression: #40a02b; /* Green */
+    --astro-code-token-punctuation: #5c5f77; /* Overlay2 */
+    --astro-code-token-link: #1e66f5; /* Blue */
 }
