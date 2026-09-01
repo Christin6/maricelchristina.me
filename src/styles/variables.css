@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme="dark"] {
     --canvas-bg: #1c1c20;
     --primary-txt: #e6edf3;
     --pastel-accent: #ffb7b2; /* Pastel Pink Tint */
@@ -17,4 +18,24 @@
     --astro-code-token-string-expression: #b9e8a0;
     --astro-code-token-punctuation: #9a9da3;
     --astro-code-token-link: #8ecdf0;
+}
+
+[data-theme="light"] {
+    --canvas-bg: #f4f4f6;
+    --primary-txt: #1c1c20;
+    --pastel-accent: #ffb7b2;
+    --widget-border: #e0bbe4;
+    --surface-layer: #e8e8ec;
+
+    --astro-code-color-text: var(--primary-txt);
+    --astro-code-color-background: var(--surface-layer);
+    --astro-code-token-constant: #c45c5c;
+    --astro-code-token-string: #3d7a3d;
+    --astro-code-token-comment: #6b6e76;
+    --astro-code-token-keyword: #7a4f8a;
+    --astro-code-token-parameter: var(--primary-txt);
+    --astro-code-token-function: #2a6e9e;
+    --astro-code-token-string-expression: #3d7a3d;
+    --astro-code-token-punctuation: #5a5d65;
+    --astro-code-token-link: #2a6e9e;
 }
