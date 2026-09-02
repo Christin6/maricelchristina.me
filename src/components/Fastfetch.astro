@@ -15,10 +15,11 @@
       <p class="fetch-field" data-i="1"><span class="fetch-key">Host:</span> <span class="fetch-val">University of Technology Sydney (2nd Year)</span></p>
       <p class="fetch-field" data-i="2"><span class="fetch-key">Kernel:</span> <span class="fetch-val">sleep deprivation</span></p>
       <p class="fetch-field" data-i="3"><span class="fetch-key">Shell:</span> <span class="fetch-val">rust, javascript (react, express, react-native), python</span></p>
-      <p class="fetch-field" data-i="4"><span class="fetch-key">Status:</span> <span class="fetch-val">studying for Security+ (SY0-701)</span></p>
-      <p class="fetch-field" data-i="5"><span class="fetch-key">Theme:</span> <span class="fetch-val" id="fetchTheme">Catppuccin Mocha [Dark]</span></p>
-      <p class="fetch-field" data-i="6"><span class="fetch-key">Icons:</span> <span class="fetch-val">win98icons.alexmeub.com</span></p>
-      <p class="fetch-field" data-i="7"><span class="fetch-key">Font:</span> <span class="fetch-val">Fira Code</span></p>
+      <p class="fetch-field" data-i="4"><span class="fetch-key">Uptime:</span> <span class="fetch-val" id="fetchUptime">Once upon a time</span></p>
+      <p class="fetch-field" data-i="5"><span class="fetch-key">Status:</span> <span class="fetch-val">studying for Security+ (SY0-701)</span></p>
+      <p class="fetch-field" data-i="6"><span class="fetch-key">Theme:</span> <span class="fetch-val" id="fetchTheme">Catppuccin Mocha [Dark]</span></p>
+      <p class="fetch-field" data-i="7"><span class="fetch-key">Icons:</span> <span class="fetch-val">win98icons.alexmeub.com</span></p>
+      <p class="fetch-field" data-i="8"><span class="fetch-key">Font:</span> <span class="fetch-val">Fira Code</span></p>
 
       <div class="fetch-swatches" id="fetchSwatches">
         <span class="swatch" style="background:var(--pastel-accent)"></span>
@@ -281,6 +282,18 @@
         : "Catppuccin Mocha [Dark]";
   }
 
+  // Age line, calculate today - birthdate in hours
+  function updateAgeLine() {
+    const el = document.getElementById("fetchUptime");
+    if (!el) return;
+    const birthdate: Date = new Date("2006-09-04T00:00:00Z");
+    const now: Date = new Date();
+    const diffInSeconds = Math.floor((now - birthdate) / 1000);
+    const diffInHours = Math.floor(diffInSeconds / 3600);
+    const diffInMinutes = Math.floor((diffInSeconds % 3600) / 60);
+    el.textContent = `${diffInHours} hours ${diffInMinutes} minutes`;
+  }
+
   function init(){
     const logoEl = document.getElementById("fetchLogo");
     const cmdEl = document.getElementById("promptCmd");
@@ -292,6 +305,9 @@
       attributes: true,
       attributeFilter: ["data-theme"],
     });
+
+    updateAgeLine();
+    setInterval(updateAgeLine, 60 * 1000);
 
     typeCommand(cmdEl, cursorEl, "fastfetch", () => {
       runDecode(logoEl, () => revealSpecs(document));
