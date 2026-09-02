@@ -1,8 +1,9 @@
+---
+import TypedPrompt from "./TypedPrompt.astro";
+---
+
 <section class="fastfetch">
-  <p class="prompt-line">
-    <span class="prompt-user">guest@maricelchristina.me</span><span class="prompt-sep">:~$</span>
-    <span id="promptCmd"></span><span class="prompt-cursor" id="promptCursor">▌</span>
-  </p>
+  <TypedPrompt command="fastfetch" />
 
   <div class="fetch-grid">
     <pre class="fetch-logo" id="fetchLogo" aria-hidden="true"></pre>
@@ -42,24 +43,6 @@
       flex-direction: column;
       justify-content: center;
     }
-  }
-
-  .prompt-line{
-    color: var(--astro-code-token-comment);
-    margin: 0 0 22px;
-  }
-  .prompt-user{ color: var(--pastel-accent); }
-  .prompt-sep{ color: var(--astro-code-token-comment); margin-right: 4px; }
-
-  .prompt-cursor{
-    display: inline-block;
-    color: var(--pastel-accent);
-    opacity: 0;
-    margin-left: 1px;
-  }
-  .prompt-cursor.in{
-    opacity: 1;
-    animation: fetch-blink 1s steps(1) infinite;
   }
 
   .fetch-grid{
@@ -172,32 +155,6 @@
     logoEl.textContent = lines.map((l) => l.join("")).join("\n");
   }
 
-  // Types the command into the prompt line, character by character,
-  // then hands off to whatever runs next (the logo decode).
-  function typeCommand(cmdEl, cursorEl, text, onDone){
-    if (reduceMotion){
-      cmdEl.textContent = text;
-      onDone();
-      return;
-    }
-
-    cursorEl.classList.add("in");
-    let i = 0;
-
-    const interval = setInterval(() => {
-      i++;
-      cmdEl.textContent = text.slice(0, i);
-
-      if (i >= text.length){
-        clearInterval(interval);
-        setTimeout(() => {
-          cursorEl.classList.remove("in");
-          onDone();
-        }, 250); // brief pause, like hitting enter, before output starts
-      }
-    }, 120);
-  }
-
   function runDecode(logoEl, onDone){
     const grid = ART.map((line) => line.split(""));
     const locked = ART.map((line) => line.split("").map((ch) => ch === " "));
@@ -265,40 +222,29 @@
     setTimeout(() => cursor.classList.add("in"), delay);
   }
 
-  // Theme line: reads data-theme off <html>, matching variables.css'
-  // [data-theme="dark"] / [data-theme="light"] selectors, and stays in
-  // sync with your existing theme toggle via MutationObserver.
-  function currentTheme(){
-    const attr = document.documentElement.getAttribute("data-theme");
-    return attr === "light" ? "light" : "dark";
-  }
-
+  // Reads data-theme off <html>, matching variables.css'
+  // [data-theme="dark"] / [data-theme="light"] selectors.
   function updateThemeLine(){
     const el = document.getElementById("fetchTheme");
     if (!el) return;
-    el.textContent =
-      currentTheme() === "light"
-        ? "Catppuccin Latte [Light]"
-        : "Catppuccin Mocha [Dark]";
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    el.textContent = isLight ? "Catppuccin Latte [Light]" : "Catppuccin Mocha [Dark]";
   }
 
-  // Age line, calculate today - birthdate in hours
-  function updateAgeLine() {
+  // Age line: today - birthdate, in hours/minutes.
+  function updateAgeLine(){
     const el = document.getElementById("fetchUptime");
     if (!el) return;
-    const birthdate: Date = new Date("2006-09-04T00:00:00Z");
-    const now: Date = new Date();
-    const diffInSeconds = Math.floor((now - birthdate) / 1000);
-    const diffInHours = Math.floor(diffInSeconds / 3600);
-    const diffInMinutes = Math.floor((diffInSeconds % 3600) / 60);
-    el.textContent = `${diffInHours} hours ${diffInMinutes} minutes`;
+    const birthdate = new Date("2006-09-04T00:00:00Z");
+    const diffInSeconds = Math.floor((Date.now() - birthdate.getTime()) / 1000);
+    const hours = Math.floor(diffInSeconds / 3600);
+    const minutes = Math.floor((diffInSeconds % 3600) / 60);
+    el.textContent = `${hours} hours ${minutes} minutes`;
   }
 
   function init(){
     const logoEl = document.getElementById("fetchLogo");
-    const cmdEl = document.getElementById("promptCmd");
-    const cursorEl = document.getElementById("promptCursor");
-    if (!logoEl || !cmdEl || !cursorEl) return;
+    if (!logoEl) return;
 
     updateThemeLine();
     new MutationObserver(updateThemeLine).observe(document.documentElement, {
@@ -309,9 +255,11 @@
     updateAgeLine();
     setInterval(updateAgeLine, 60 * 1000);
 
-    typeCommand(cmdEl, cursorEl, "fastfetch", () => {
-      runDecode(logoEl, () => revealSpecs(document));
-    });
+    // Wait for the shared TypedPrompt component (scoped to this section)
+    // to finish typing "fastfetch" before starting the logo decode.
+    document
+      .querySelector(".fastfetch .typed-prompt")
+      ?.addEventListener("prompt-typed", () => runDecode(logoEl, () => revealSpecs(document)), { once: true });
   }
 
   init();

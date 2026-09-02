@@ -1,0 +1,93 @@
+---
+interface Props {
+  user?: string;
+  command: string;
+  speed?: number;       // ms per character
+  autostart?: boolean;  // if false, wait for a "prompt-start" event on this element
+}
+
+const {
+  user = "guest@maricelchristina.me",
+  command,
+  speed = 60,
+  autostart = true,
+} = Astro.props;
+---
+
+<p
+  class="typed-prompt"
+  data-command={command}
+  data-speed={speed}
+  data-autostart={autostart ? "true" : "false"}
+>
+  <span class="prompt-user">{user}</span><span class="prompt-sep">:~$</span>
+  <span class="prompt-cmd"></span><span class="prompt-cursor">▌</span>
+</p>
+
+<style>
+  .typed-prompt{
+    color: var(--astro-code-token-comment);
+    margin: 0 0 22px;
+  }
+  .typed-prompt .prompt-user{ color: var(--pastel-accent); }
+  .typed-prompt .prompt-sep{ color: var(--astro-code-token-comment); margin-right: 4px; }
+  .typed-prompt .prompt-cmd{ color: var(--primary-txt); }
+
+  .typed-prompt .prompt-cursor{
+    display: inline-block;
+    color: var(--pastel-accent);
+    opacity: 0;
+    margin-left: 1px;
+  }
+  .typed-prompt .prompt-cursor.in{
+    opacity: 1;
+    animation: typed-blink 1s steps(1) infinite;
+  }
+  @keyframes typed-blink{ 50%{ opacity: 0; } }
+</style>
+
+<script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function typeOne(root: HTMLElement){
+    const text = root.dataset.command || "";
+    const speed = Number(root.dataset.speed) || 60;
+    const cmdEl = root.querySelector(".prompt-cmd");
+    const cursorEl = root.querySelector(".prompt-cursor");
+    if (!cmdEl || !cursorEl) return;
+
+    function finish(){
+      cursorEl.classList.remove("in");
+      root.dispatchEvent(
+        new CustomEvent("prompt-typed", { bubbles: true, detail: { command: text } }),
+      );
+    }
+
+    function run(){
+      if (reduceMotion){
+        cmdEl.textContent = text;
+        finish();
+        return;
+      }
+
+      cursorEl.classList.add("in");
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        cmdEl.textContent = text.slice(0, i);
+        if (i >= text.length){
+          clearInterval(interval);
+          setTimeout(finish, 250); // brief pause, like hitting enter
+        }
+      }, speed);
+    }
+
+    if (root.dataset.autostart === "false"){
+      root.addEventListener("prompt-start", run, { once: true });
+    } else {
+      run();
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>(".typed-prompt").forEach(typeOne);
+</script>
