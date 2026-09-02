@@ -2,70 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import Fastfetch from "../components/Fastfetch.astro";
-
-import { getCollection } from "astro:content";
-
-const blogEntries = await getCollection("blog");
-const projectEntries = await getCollection("project");
-
-const chronologicalEntries = blogEntries.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-const featuredProjects = projectEntries.filter(
-    (project) => project.data.featured === true,
-);
 ---
 
 <BaseLayout pageTitle="Maricel Christina - Home">
     <Fastfetch />
-
-    <section class="feed-grid">
-        <h2>Projects</h2>
-        {
-            featuredProjects.map((project) => (
-                <article class="feed-card">
-                    <h3 class="card-title">
-                        <a href={`./project/${project.id}`}>
-                            {project.data.title}
-                        </a>
-                    </h3>
-                    <p class="card-desc">{project.data.description}</p>
-                    <nav class="project-links">
-                        <a target="_blank" href={project.data.demoLink}>
-                            Demo
-                        </a>
-                        <a target="_blank" href={project.data.sourceLink}>
-                            Source
-                        </a>
-                    </nav>
-                    <div class="badge-row">
-                        {project.data.techStack.map((stack) => (
-                            <a class="tag-badge">{stack}</a>
-                        ))}
-                    </div>
-                </article>
-            ))
-        }
-    </section>
-
-    <section class="feed-grid">
-        <h2>Notes</h2>
-        {
-            chronologicalEntries.map((post) => (
-                <article class="feed-card">
-                    <h3 class="card-title">
-                        <a href={`./blog/${post.id}`}>{post.data.title}</a>
-                    </h3>
-                    <p class="card-desc">{post.data.description}</p>
-                    <div class="badge-row">
-                        {post.data.tags.map((tag) => (
-                            <a href={`./tags/${tag}`} class="tag-badge">
-                                #{tag}
-                            </a>
-                        ))}
-                    </div>
-                </article>
-            ))
-        }
-    </section>
 </BaseLayout>
