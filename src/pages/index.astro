@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+import Fastfetch from "../components/Fastfetch.astro";
+
 import { getCollection } from "astro:content";
 
 const blogEntries = await getCollection("blog");
@@ -14,14 +17,7 @@ const featuredProjects = projectEntries.filter(
 ---
 
 <BaseLayout pageTitle="Maricel Christina - Home">
-    <section class="intro-block">
-        <img src="../icons/computer_explorer_2k-4.png" />
-        <h1>Hi, I'm Maricel</h1>
-        <p>
-            I'm a student who likes to build stuff and write sometimes. This is
-            my little spot on the internet.
-        </p>
-    </section>
+    <Fastfetch />
 
     <section class="feed-grid">
         <h2>Projects</h2>

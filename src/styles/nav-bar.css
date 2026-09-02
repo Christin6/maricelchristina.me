@@ -5,7 +5,7 @@
     gap: 1.5rem;
     max-width: 680px;
     margin: 0 auto;
-    padding: 1.5rem 1.25rem;
+    padding: 0.5rem 1.25rem;
 }
 
 .site-title {
@@ -24,7 +24,8 @@
 
 .nav-link {
     text-decoration: none;
-    font-weight: 600;
+    font-weight: light;
+    font-size: medium;
 }
 
 .header-controls {
@@ -87,4 +88,5 @@
     vertical-align: middle;
     width: 18px;
     height: 18px;
+    margin-right: 0.25rem;
 }

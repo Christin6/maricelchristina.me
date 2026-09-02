@@ -1,0 +1,245 @@
+<section class="fastfetch">
+  <p class="prompt-line">
+    <span class="prompt-user">guest@maricelchristina.me</span><span class="prompt-sep">:~$</span> fastfetch
+  </p>
+
+  <div class="fetch-grid">
+    <pre class="fetch-logo" id="fetchLogo" aria-hidden="true"></pre>
+
+    <div class="fetch-specs">
+      <p class="fetch-who" id="fetchWho">maricel@sydney</p>
+      <p class="fetch-rule" id="fetchRule">------------------------</p>
+
+      <p class="fetch-field" data-i="0"><span class="fetch-key">OS:</span> <span class="fetch-val">Networking &amp; Cybersecurity + Finance</span></p>
+      <p class="fetch-field" data-i="1"><span class="fetch-key">Host:</span> <span class="fetch-val">University of Technology Sydney</span></p>
+      <p class="fetch-field" data-i="2"><span class="fetch-key">Kernel:</span> <span class="fetch-val">2nd Year</span></p>
+      <p class="fetch-field" data-i="3"><span class="fetch-key">Shell:</span> <span class="fetch-val">rust, typescript, react-native, python</span></p>
+      <p class="fetch-field" data-i="4"><span class="fetch-key">Projects:</span> <span class="fetch-val">netstack, waffley, flavouriq</span></p>
+      <p class="fetch-field" data-i="5"><span class="fetch-key">Status:</span> <span class="fetch-val">studying for Security+ (SY0-701)</span></p>
+      <p class="fetch-field" data-i="6"><span class="fetch-key">Theme:</span> <span class="fetch-val" id="fetchTheme">Catppuccin Mocha [Dark]</span></p>
+
+      <div class="fetch-swatches" id="fetchSwatches">
+        <span class="swatch" style="background:var(--pastel-accent)"></span>
+        <span class="swatch" style="background:var(--widget-border)"></span>
+        <span class="swatch" style="background:var(--astro-code-token-string)"></span>
+        <span class="swatch" style="background:var(--astro-code-token-function)"></span>
+        <span class="swatch" style="background:var(--astro-code-token-comment)"></span>
+        <span class="swatch" style="background:var(--primary-txt)"></span>
+        <span class="fetch-cursor" id="fetchCursor">▌</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fastfetch{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .prompt-line{
+    color: var(--astro-code-token-comment);
+    margin: 0 0 22px;
+  }
+  .prompt-user{ color: var(--pastel-accent); }
+  .prompt-sep{ color: var(--astro-code-token-comment); margin-right: 4px; }
+
+  .fetch-grid{
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .fetch-logo{
+    color: var(--widget-border);
+    white-space: pre;
+    background: none;
+    border: none;
+    line-height: 1.35;
+    user-select: none;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .fetch-specs{ flex: 1; min-width: 260px; }
+
+  .fetch-who{
+    color: var(--pastel-accent);
+    font-weight: bold;
+    margin: 0;
+    opacity: 0;
+  }
+  .fetch-rule{
+    color: var(--astro-code-token-comment);
+    margin: 0 0 2px;
+    opacity: 0;
+  }
+  .fetch-field{
+    margin: 2px 0;
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  .fetch-key{ color: var(--widget-border); }
+  .fetch-val{ color: var(--primary-txt); }
+
+  .fetch-field.in, .fetch-who.in, .fetch-rule.in{
+    animation: fetch-reveal 0.4s ease forwards;
+  }
+  @keyframes fetch-reveal{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .fetch-swatches{
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+    opacity: 0;
+  }
+  .fetch-swatches.in{ animation: fetch-reveal 0.4s ease forwards; }
+  .swatch{
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+  }
+
+  .fetch-cursor{
+    display: inline-block;
+    color: var(--pastel-accent);
+    opacity: 0;
+    margin-left: 2px;
+  }
+  .fetch-cursor.in{
+    opacity: 1;
+    animation: fetch-blink 1s steps(1) infinite;
+  }
+  @keyframes fetch-blink{ 50%{ opacity: 0; } }
+
+  @media (max-width: 640px){
+    .fetch-grid{ gap: 24px; }
+    .fetch-logo{ font-size: 0.78rem; }
+  }
+</style>
+
+<script>
+  const ART = [
+    "  ╭───────────────╮",
+    "  │ ╭───────────╮ │",
+    "  │ │ >_        │ │",
+    "  │ │           │ │",
+    "  │ │           │ │",
+    "  │ ╰───────────╯ │",
+    "  ╰───────┬───────╯",
+    "       ╭──┴──╮     ",
+    "  ─────┴─────┴─────",
+  ];
+
+  const GLITCH_CHARS = "░▒▓█▌▐│┤┐└┴┬├─┼╭╮╯╰/\\|".split("");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function randomGlitch(){
+    return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+  }
+
+  function renderArt(logoEl, lines){
+    logoEl.textContent = lines.map((l) => l.join("")).join("\n");
+  }
+
+  function runDecode(logoEl, onDone){
+    const grid = ART.map((line) => line.split(""));
+    const locked = ART.map((line) => line.split("").map((ch) => ch === " "));
+
+    if (reduceMotion){
+      renderArt(logoEl, grid);
+      onDone();
+      return;
+    }
+
+    const totalFrames = 16;
+    let frame = 0;
+
+    const interval = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+
+      const display = grid.map((line, y) =>
+        line.map((ch, x) => {
+          if (ch === " ") return " ";
+          if (!locked[y][x] && Math.random() < progress) locked[y][x] = true;
+          return locked[y][x] ? ch : randomGlitch();
+        }),
+      );
+
+      renderArt(logoEl, display);
+
+      if (frame >= totalFrames){
+        clearInterval(interval);
+        renderArt(logoEl, grid);
+        onDone();
+      }
+    }, 45);
+  }
+
+  function revealSpecs(root){
+    const who = root.querySelector("#fetchWho");
+    const rule = root.querySelector("#fetchRule");
+    const fields = Array.from(root.querySelectorAll(".fetch-field"));
+    const swatches = root.querySelector("#fetchSwatches");
+    const cursor = root.querySelector("#fetchCursor");
+
+    if (reduceMotion){
+      [who, rule, ...fields, swatches].forEach((el) => el.classList.add("in"));
+      cursor.classList.add("in");
+      return;
+    }
+
+    let delay = 0;
+    const step = 70;
+
+    who.style.animationDelay = `${delay}ms`; who.classList.add("in"); delay += step;
+    rule.style.animationDelay = `${delay}ms`; rule.classList.add("in"); delay += step;
+
+    fields.forEach((f) => {
+      f.style.animationDelay = `${delay}ms`;
+      f.classList.add("in");
+      delay += step;
+    });
+
+    swatches.style.animationDelay = `${delay}ms`;
+    swatches.classList.add("in");
+    delay += step + 200;
+
+    setTimeout(() => cursor.classList.add("in"), delay);
+  }
+
+  // Theme line: reads data-theme off <html>, matching variables.css'
+  // [data-theme="dark"] / [data-theme="light"] selectors, and stays in
+  // sync with your existing theme toggle via MutationObserver.
+  function currentTheme(){
+    const attr = document.documentElement.getAttribute("data-theme");
+    return attr === "light" ? "light" : "dark";
+  }
+
+  function updateThemeLine(){
+    const el = document.getElementById("fetchTheme");
+    if (!el) return;
+    el.textContent =
+      currentTheme() === "light"
+        ? "Catppuccin Latte [Light]"
+        : "Catppuccin Mocha [Dark]";
+  }
+
+  function init(){
+    const logoEl = document.getElementById("fetchLogo");
+    if (!logoEl) return;
+    updateThemeLine();
+    new MutationObserver(updateThemeLine).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    runDecode(logoEl, () => revealSpecs(document));
+  }
+
+  init();
+</script>
