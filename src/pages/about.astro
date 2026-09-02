@@ -1,68 +1,79 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TerminalReveal from "../components/TerminalReveal.astro";
 ---
 
 <BaseLayout pageTitle="Maricel Christina - About">
-    <h1>About</h1>
-    <p>
-        Hi there, I'm Maricel. My friends usually call me Mari. I am a software
-        enthusiast, currently focusing on deepening my knowledge in
-        cybersecurity. But I also enjoy design work. I'm a second-year student
-        at UTS, Sydney, doing a double degree in IT and Business, majoring in
-        Networking & Cybersecurity combined with Finance. Outside of tech, I
-        like reading manhwa and novels, especially fantasy.
-    </p>
-    <p>
-        I'm currently spending most of my free time on CTF challenges and
-        deploying my first mobile app. I'm also in the journey of going through
-        as many suburbs in Sydney as I can (and to the extent that my friends
-        can tolerate), and taking photos of them.
-    </p>
-    <p>
-        PS. This website was inspired by <a
-            target="_blank"
-            href="https://www.taniarascia.com/">Tania Rascia's blog</a
-        >. I like her light-hearted approach and want the same for my own
-        website. I also want my website to be as snappy as possibly, so I chose
-        basic Astro website over fancy animations.
-    </p>
+    <TerminalReveal command="cat about.md">
+        <h1>About</h1>
+        <p>
+            Hi there, I'm Maricel. My friends usually call me Mari. I am a
+            software enthusiast, currently focusing on deepening my knowledge in
+            cybersecurity. But I also enjoy design work. I'm a second-year
+            student at UTS, Sydney, doing a double degree in IT and Business,
+            majoring in Networking & Cybersecurity combined with Finance.
+            Outside of tech, I like reading manhwa and novels, especially
+            fantasy.
+        </p>
+        <p>
+            I'm currently spending most of my free time on CTF challenges and
+            deploying my first mobile app. I'm also in the journey of going
+            through as many suburbs in Sydney as I can (and to the extent that
+            my friends can tolerate), and taking photos of them.
+        </p>
+        <p>
+            PS. This website was inspired by <a
+                target="_blank"
+                href="https://www.taniarascia.com/">Tania Rascia's blog</a
+            >. I like her light-hearted approach and want the same for my own
+            website. I also want my website to be as snappy as possibly, so I
+            chose basic Astro website over fancy animations.
+        </p>
 
-    <article>
-        <h2>Contact</h2>
-        <p>Feel free to send an email my way, or hit me up on the socials</p>
-        <ul>
-            <li>
-                <a target="_blank" href="https://github.com/Christin6">Github</a
-                >
-            </li>
-            <li>
-                <a href="mailto:maricelchristina0409@gmail.com"
-                    >Email: maricelchristina0409@gmail.com</a
-                >
-            </li>
-            <li>
-                <a
-                    target="_blank"
-                    href="https://www.linkedin.com/in/maricel-christina/"
-                    >Linkedin</a
-                >
-            </li>
-        </ul>
-    </article>
+        <article>
+            <h2>Contact</h2>
+            <p>
+                Feel free to send an email my way, or hit me up on the socials
+            </p>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://github.com/Christin6"
+                        >Github</a
+                    >
+                </li>
+                <li>
+                    <a href="mailto:maricelchristina0409@gmail.com"
+                        >Email: maricelchristina0409@gmail.com</a
+                    >
+                </li>
+                <li>
+                    <a
+                        target="_blank"
+                        href="https://www.linkedin.com/in/maricel-christina/"
+                        >Linkedin</a
+                    >
+                </li>
+            </ul>
+        </article>
 
-    <article>
-        <h2>Tools</h2>
-        <ul>
-            <li>
-                This website was built using <a
-                    target="_blank"
-                    href="https://astro.build">Astro</a
-                > and hosted on <a target="_blank" href="https://www.vercel.com"
-                    >Vercel</a
-                >
-            </li>
-            <li>Coding: <a href="https://zed.dev/">Zed Editor</a></li>
-            <li>Terminal: <a href="https://sw.kovidgoyal.net/kitty/">Kitty</a></li>
-        </ul>
-    </article>
+        <article>
+            <h2>Tools</h2>
+            <ul>
+                <li>
+                    This website was built using <a
+                        target="_blank"
+                        href="https://astro.build">Astro</a
+                    > and hosted on <a
+                        target="_blank"
+                        href="https://www.vercel.com">Vercel</a
+                    >
+                </li>
+                <li>Coding: <a href="https://zed.dev/">Zed Editor</a></li>
+                <li>
+                    Terminal: <a href="https://sw.kovidgoyal.net/kitty/"
+                        >Kitty</a>
+                </li>
+            </ul>
+        </article>
+    </TerminalReveal>
 </BaseLayout>

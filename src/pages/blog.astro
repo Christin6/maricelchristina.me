@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TerminalReveal from "../components/TerminalReveal.astro";
 import { getCollection } from "astro:content";
 
 const blogEntries = await getCollection("blog");
@@ -10,25 +11,27 @@ const chronologicalEntries = blogEntries.sort(
 ---
 
 <BaseLayout pageTitle="Maricel Christina - Notes">
-    <h1>Notes</h1>
+    <TerminalReveal command="cd Notes">
+        <h1>Notes</h1>
 
-    <section class="feed-grid">
-        {
-            chronologicalEntries.map((post) => (
-                <article class="feed-card">
-                    <h3 class="card-title">
-                        <a href={`./blog/${post.id}`}>{post.data.title}</a>
-                    </h3>
-                    <p class="card-desc">{post.data.description}</p>
-                    <div class="badge-row">
-                        {post.data.tags.map((tag) => (
-                            <a href={`./tags/${tag}`} class="tag-badge">
-                                #{tag}
-                            </a>
-                        ))}
-                    </div>
-                </article>
-            ))
-        }
-    </section>
+        <section class="feed-grid">
+            {
+                chronologicalEntries.map((post) => (
+                    <article class="feed-card">
+                        <h3 class="card-title">
+                            <a href={`./blog/${post.id}`}>{post.data.title}</a>
+                        </h3>
+                        <p class="card-desc">{post.data.description}</p>
+                        <div class="badge-row">
+                            {post.data.tags.map((tag) => (
+                                <a href={`./tags/${tag}`} class="tag-badge">
+                                    #{tag}
+                                </a>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </section>
+    </TerminalReveal>
 </BaseLayout>

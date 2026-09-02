@@ -1,0 +1,40 @@
+---
+import TypedPrompt from "./TypedPrompt.astro";
+
+interface Props {
+  command: string;
+  user?: string;
+  speed?: number;
+  autostart?: boolean;
+}
+
+const { command, user, speed, autostart } = Astro.props;
+---
+
+<div class="terminal-reveal">
+  <TypedPrompt command={command} user={user} speed={speed} autostart={autostart} />
+  <div class="reveal-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .reveal-content{
+    opacity: 0;
+  }
+  .reveal-content.in{
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+</style>
+
+<script>
+  function initOne(root){
+    const prompt = root.querySelector(".typed-prompt");
+    const content = root.querySelector(".reveal-content");
+    if (!prompt || !content) return;
+    prompt.addEventListener("prompt-typed", () => content.classList.add("in"), { once: true });
+  }
+
+  document.querySelectorAll(".terminal-reveal").forEach(initOne);
+</script>

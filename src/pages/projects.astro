@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TerminalReveal from "../components/TerminalReveal.astro";
 import { getCollection } from "astro:content";
 
 const projectEntries = await getCollection("project");
@@ -10,37 +11,42 @@ const featuredProjects = projectEntries.filter(
 ---
 
 <BaseLayout pageTitle="Maricel Christina - Projects">
-    <h1>My Projects</h1>
+    <TerminalReveal command="cd Projects">
+        <h1>My Projects</h1>
 
-    <section class="feed-grid">
-        {
-            featuredProjects.map((project) => (
-                <article class="feed-card">
-                    <section class="project-card-title">
-                        <h3 class="card-title">
-                            <a href={`./project/${project.id}`}>
-                                {project.data.title}
-                            </a>
-                        </h3>
-                        <nav class="project-links">
-                            <a target="_blank" href={project.data.demoLink}>
-                                Demo
-                            </a>
-                            <a target="_blank" href={project.data.sourceLink}>
-                                Source
-                            </a>
-                        </nav>
-                    </section>
+        <section class="feed-grid">
+            {
+                featuredProjects.map((project) => (
+                    <article class="feed-card">
+                        <section class="project-card-title">
+                            <h3 class="card-title">
+                                <a href={`./project/${project.id}`}>
+                                    {project.data.title}
+                                </a>
+                            </h3>
+                            <nav class="project-links">
+                                <a target="_blank" href={project.data.demoLink}>
+                                    Demo
+                                </a>
+                                <a
+                                    target="_blank"
+                                    href={project.data.sourceLink}
+                                >
+                                    Source
+                                </a>
+                            </nav>
+                        </section>
 
-                    <p class="card-desc">{project.data.description}</p>
+                        <p class="card-desc">{project.data.description}</p>
 
-                    <div class="badge-row">
-                        {project.data.techStack.map((stack) => (
-                            <a class="tag-badge">{stack}</a>
-                        ))}
-                    </div>
-                </article>
-            ))
-        }
-    </section>
+                        <div class="badge-row">
+                            {project.data.techStack.map((stack) => (
+                                <a class="tag-badge">{stack}</a>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </section>
+    </TerminalReveal>
 </BaseLayout>
