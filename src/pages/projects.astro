@@ -17,20 +17,24 @@ const featuredProjects = projectEntries.filter(
         {
             featuredProjects.map((project) => (
                 <article class="feed-card">
-                    <h3 class="card-title">
-                        <a href={`./project/${project.id}`}>
-                            {project.data.title}
-                        </a>
-                    </h3>
+                    <section class="project-card-title">
+                        <h3 class="card-title">
+                            <a href={`./project/${project.id}`}>
+                                {project.data.title}
+                            </a>
+                        </h3>
+                        <nav class="project-links">
+                            <a target="_blank" href={project.data.demoLink}>
+                                Demo
+                            </a>
+                            <a target="_blank" href={project.data.sourceLink}>
+                                Source
+                            </a>
+                        </nav>
+                    </section>
+
                     <p class="card-desc">{project.data.description}</p>
-                    <nav class="project-links">
-                        <a target="_blank" href={project.data.demoLink}>
-                            Demo
-                        </a>
-                        <a target="_blank" href={project.data.sourceLink}>
-                            Source
-                        </a>
-                    </nav>
+
                     <div class="badge-row">
                         {project.data.techStack.map((stack) => (
                             <a class="tag-badge">{stack}</a>

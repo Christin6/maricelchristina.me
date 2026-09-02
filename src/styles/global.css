@@ -72,32 +72,31 @@ pre > code {
     font-family: "JetBrains Mono", ui-monospace, monospace;
 }
 
-/* Homepage Styles */
-.intro-block {
-    margin-bottom: 2.5rem;
-}
-
-.intro-block h1 {
-    font-size: 3rem;
-    text-decoration: underline solid var(--widget-border) 0.3rem;
-    transition: text-decoration 1s;
-}
-
-.intro-block h1:hover {
-    text-decoration: underline solid var(--widget-border) 1rem;
-}
-
 .feed-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     margin-bottom: 3rem;
 }
 
 .feed-card {
-    background: var(--surface-layer);
-    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border: 1px solid var(--widget-border);
+    padding: 0.5rem 1.5rem 1rem;
     border-radius: 12px;
+}
+
+.project-card-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1rem;
+    margin: 1rem 0 0;
 }
 
 .card-title a {
@@ -105,12 +104,11 @@ pre > code {
 }
 
 .card-desc {
-    margin: 0.5rem 0 1rem 0;
+    margin: 0;
 }
 
 .project-links {
     /* for demo and source links row */
-    margin: 0 0 1rem;
     display: flex;
     gap: 1rem;
 }
