@@ -3,11 +3,24 @@
 
 /* Base Elements */
 body {
+    opacity: 0;
+    animation: fadeInDown 0.8s ease-out forwards;
     background-color: var(--canvas-bg);
     color: var(--primary-txt);
     font-family: "Fira Code", monospace;
     line-height: 1.7;
     margin: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Starts 20px above its final position */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* Moves to its final position */
+  }
 }
 
 em {

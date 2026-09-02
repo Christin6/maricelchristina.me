@@ -1,6 +1,7 @@
 <section class="fastfetch">
   <p class="prompt-line">
-    <span class="prompt-user">guest@maricelchristina.me</span><span class="prompt-sep">:~$</span> fastfetch
+    <span class="prompt-user">guest@maricelchristina.me</span><span class="prompt-sep">:~$</span>
+    <span id="promptCmd"></span><span class="prompt-cursor" id="promptCursor">▌</span>
   </p>
 
   <div class="fetch-grid">
@@ -11,8 +12,8 @@
       <p class="fetch-rule" id="fetchRule">------------------------</p>
 
       <p class="fetch-field" data-i="0"><span class="fetch-key">OS:</span> <span class="fetch-val">Networking &amp; Cybersecurity + Finance</span></p>
-      <p class="fetch-field" data-i="1"><span class="fetch-key">Host:</span> <span class="fetch-val">University of Technology Sydney</span></p>
-      <p class="fetch-field" data-i="2"><span class="fetch-key">Kernel:</span> <span class="fetch-val">2nd Year</span></p>
+      <p class="fetch-field" data-i="1"><span class="fetch-key">Host:</span> <span class="fetch-val">University of Technology Sydney (2nd Year)</span></p>
+      <p class="fetch-field" data-i="2"><span class="fetch-key">Kernel:</span> <span class="fetch-val">White Monsters</span></p>
       <p class="fetch-field" data-i="3"><span class="fetch-key">Shell:</span> <span class="fetch-val">rust, typescript, react-native, python</span></p>
       <p class="fetch-field" data-i="4"><span class="fetch-key">Projects:</span> <span class="fetch-val">netstack, waffley, flavouriq</span></p>
       <p class="fetch-field" data-i="5"><span class="fetch-key">Status:</span> <span class="fetch-val">studying for Security+ (SY0-701)</span></p>
@@ -45,6 +46,17 @@
   }
   .prompt-user{ color: var(--pastel-accent); }
   .prompt-sep{ color: var(--astro-code-token-comment); margin-right: 4px; }
+
+  .prompt-cursor{
+    display: inline-block;
+    color: var(--pastel-accent);
+    opacity: 0;
+    margin-left: 1px;
+  }
+  .prompt-cursor.in{
+    opacity: 1;
+    animation: fetch-blink 1s steps(1) infinite;
+  }
 
   .fetch-grid{
     display: flex;
@@ -146,6 +158,32 @@
     logoEl.textContent = lines.map((l) => l.join("")).join("\n");
   }
 
+  // Types the command into the prompt line, character by character,
+  // then hands off to whatever runs next (the logo decode).
+  function typeCommand(cmdEl, cursorEl, text, onDone){
+    if (reduceMotion){
+      cmdEl.textContent = text;
+      onDone();
+      return;
+    }
+
+    cursorEl.classList.add("in");
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i++;
+      cmdEl.textContent = text.slice(0, i);
+
+      if (i >= text.length){
+        clearInterval(interval);
+        setTimeout(() => {
+          cursorEl.classList.remove("in");
+          onDone();
+        }, 250); // brief pause, like hitting enter, before output starts
+      }
+    }, 60);
+  }
+
   function runDecode(logoEl, onDone){
     const grid = ART.map((line) => line.split(""));
     const locked = ART.map((line) => line.split("").map((ch) => ch === " "));
@@ -232,13 +270,19 @@
 
   function init(){
     const logoEl = document.getElementById("fetchLogo");
-    if (!logoEl) return;
+    const cmdEl = document.getElementById("promptCmd");
+    const cursorEl = document.getElementById("promptCursor");
+    if (!logoEl || !cmdEl || !cursorEl) return;
+
     updateThemeLine();
     new MutationObserver(updateThemeLine).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    runDecode(logoEl, () => revealSpecs(document));
+
+    typeCommand(cmdEl, cursorEl, "fastfetch", () => {
+      runDecode(logoEl, () => revealSpecs(document));
+    });
   }
 
   init();
